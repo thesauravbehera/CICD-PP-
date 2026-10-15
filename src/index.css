@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+:root {
+  --bg: #08090a;
+  --surface: #0f1011;
+  --surface-2: #141516;
+  --elevated: #191a1b;
+  --elevated-2: #23252a;
+  --fg: #f7f8f8;
+  --fg-2: #d0d6e0;
+  --fg-muted: #8a8f98;
+  --fg-subtle: #62666d;
+  --accent: #5e6ad2;
+  --accent-v: #7170ff;
+  --accent-hover: #828fff;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-s: rgba(255, 255, 255, 0.05);
+  --green: #27a644;
+  --emerald: #10b981;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-feature-settings: 'cv01', 'ss03';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Grain texture ─────────────────────────────────────────────────────────── */
+.k-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.042;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ── Liquid-metal button shine ─────────────────────────────────────────────── */
+.k-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.k-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.32) 50%, transparent 76%);
+  transform: translateX(-130%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.k-shine:hover::after {
+  transform: translateX(130%);
+}
+
+/* ── Nav pill shine ────────────────────────────────────────────────────────── */
+.k-nav-pill {
+  position: relative;
+  overflow: hidden;
+}
+
+.k-nav-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.09) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+.k-nav-pill:hover::before {
+  transform: translateX(120%);
+}
+
+/* ── Pipeline connector ────────────────────────────────────────────────────── */
+.k-connector {
+  flex: 1;
+  height: 1px;
+  min-width: 16px;
+  align-self: flex-start;
+  margin-top: 28px;
+  background: linear-gradient(90deg,
+    rgba(113, 112, 255, 0.15),
+    rgba(113, 112, 255, 0.45),
+    rgba(113, 112, 255, 0.15)
+  );
+}
+
+/* ── Feature card hover ────────────────────────────────────────────────────── */
+.k-feature-card {
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.k-feature-card:hover {
+  background: rgba(255, 255, 255, 0.025) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+/* ── Pricing recommended glow ──────────────────────────────────────────────── */
+.k-recommended-glow {
+  box-shadow:
+    0 0 0 1px rgba(113, 112, 255, 0.6),
+    0 0 48px rgba(113, 112, 255, 0.12),
+    0 0 96px rgba(94, 106, 210, 0.06);
+}
+
+/* ── Utility keyframes ────────────────────────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg) }
+  to   { transform: rotate(360deg) }
+}
+
+/* ── Entrance animation keyframes ─────────────────────────────────────────── */
+@keyframes in-scale {
+  from { opacity: 0; scale: 0.84 }
+  to   { opacity: 1; scale: 1 }
+}
+@keyframes in-soft {
+  from { opacity: 0; transform: translateY(14px) }
+  to   { opacity: 1; transform: translateY(0) }
+}
+@keyframes in-mask {
+  from { opacity: 0; transform: translateY(40%) }
+  to   { opacity: 1; transform: translateY(0) }
+}
+@keyframes in-pop {
+  0%   { opacity: 0; scale: 0.9 }
+  70%  { scale: 1.03 }
+  100% { opacity: 1; scale: 1 }
+}
+@keyframes in-btn {
+  from { opacity: 0; transform: translateY(18px) scale(0.94) }
+  to   { opacity: 1; transform: none }
+}
+@keyframes in-side {
+  from { opacity: 0; transform: translateX(22px) }
+  to   { opacity: 1; transform: translateX(0) }
+}
+@keyframes in-stat {
+  from { opacity: 0; transform: translateY(20px) }
+  to   { opacity: 1; transform: translateY(0) }
+}
+@keyframes in-em {
+  from { opacity: 0.35; filter: blur(4px) }
+  to   { opacity: 1; filter: blur(0) }
+}
+
+.appear {
+  animation-duration: 1.05s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-delay: var(--d, 0.08s);
+}
+.appear.is-in {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+  filter: none !important;
+}
+.appear--scale { animation-name: in-scale }
+.appear--soft  { animation-name: in-soft }
+.appear--mask  { animation-name: in-mask }
+.appear--pop   { animation-name: in-pop }
+.appear--btn   { animation-name: in-btn }
+.appear--side  { animation-name: in-side }
+.appear--stat  { animation-name: in-stat }
+.appear--em    { animation-name: in-em; animation-duration: 1.2s }
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--elevated-2); border-radius: 3px; }
+
+/* ── Focus visible ─────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent-v);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ── Live run ─────────────────────────────────────────────────────────────── */
+@keyframes k-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.75); }
+}
+
+@keyframes k-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
